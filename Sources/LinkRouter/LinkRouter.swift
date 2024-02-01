@@ -2,7 +2,7 @@ import Foundation
 
 /// Manages all the link handlers and routes a url to the appropriate one.
 public class LinkRouter: NSObject {
-    private(set) static var shared: LinkRouter = LinkRouter()
+    public static let shared: LinkRouter = LinkRouter(appScheme: defaultScheme)
 
     /// The identifier used for deep linking into your app.
     ///
@@ -58,4 +58,15 @@ public class LinkRouter: NSObject {
     public func addHandler(_ handler: LinkHandlerType) {
         self.handlers.append(handler)
     }
+}
+
+// MARK: - Helpers
+
+private var defaultScheme: String? {
+    if let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]],
+       let firstTypeSchemes = urlTypes.first?["CFBundleURLSchemes"] as? [String] {
+
+        return firstTypeSchemes.first
+    }
+    return nil
 }
