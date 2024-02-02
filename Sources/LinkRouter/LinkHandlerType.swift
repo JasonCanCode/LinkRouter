@@ -46,6 +46,11 @@ public extension LinkHandlerType {
         return false
     }
 
+    /// Convert a ``Link`` into a ``PathResult`` for easier inspection.
+    func result(forLink link: Link) -> PathResult? {
+        parameterExtraction(from: link.pathComponents, existingParams: link.params)
+    }
+
     /// Compared the path components with path schemes to find parameters to add.
     /// - Parameter pathComponents: Elements of a URL
     /// - Parameter existingParams: Parameters already extracted from a query. Existing parameters supercede found values with the same key.
@@ -65,7 +70,6 @@ public extension LinkHandlerType {
         }
         return nil
     }
-    // swiftlint:enable line_length
 
     private func parameterExtraction(from pathComponents: [String], schemeComponents: [String]) -> PathResult? {
         guard let indexKeyDic = keyIndicesDic(from: pathComponents, schemeComponents: schemeComponents),

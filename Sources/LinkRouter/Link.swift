@@ -66,3 +66,7 @@ public struct Link {
         return urlComponents.url
     }
 }
+
+public extension Link {
+    
+}
