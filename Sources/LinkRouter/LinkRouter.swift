@@ -2,6 +2,11 @@ import Foundation
 
 /// Manages all the link handlers and routes a url to the appropriate one.
 public class LinkRouter: NSObject {
+    /// A singleton instance to be used as the primary router for linking into the app.
+    ///
+    /// By default, this singleton will pull the primary custom scheme from the main bundle if
+    ///  [defined.](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app)
+    /// If your app uses multiple URL types, you will need to manage your own instances of ``LinkRouter`` instead.
     public static let shared: LinkRouter = LinkRouter(appScheme: defaultScheme)
 
     /// The identifier used for deep linking into your app.
